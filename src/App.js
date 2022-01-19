@@ -18,37 +18,47 @@ function App() {
   const [apiOffSet, setApiOffSet] = useState(0);
   const [apiLimit, setApiLimit] = useState(6);
   const [pokemonList, setPokemonList] = useState([]);
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemonArray, setPokemonArray] = useState([]);
 
 
   const apiUrl = `https://pokeapi.co/api/v2/pokemon/`
 
-  // create a function (getListOfPokemon) to retreive data from the api and THEN call the getIndividualPokemon function
-  useEffect(() => {
-    axios({
-      url: apiUrl,
-      method: "GET",
-      dataResponse: "json",
-      params: {
-        offset: apiOffSet,
-        limit: apiLimit,
-      },
-    }).then((response) => {
-      const poke = response.data.results
-      console.log(poke);
-      poke.map((e) => {
-        console.log(e);
-        return `${e.urls}`
+    // create a function (getListOfPokemon) to retreive data from the api and THEN call the getIndividualPokemon function
+    useEffect(() => {
+      axios({
+        url: apiUrl,
+        method: "GET",
+        dataResponse: "json",
+        params: {
+          offset: apiOffSet,
+          limit: apiLimit,
+        },
+      }).then((response) => {
+        setPokemonList(response.data.results);
+        console.log(response.data.results);
+      }).catch((error) => {
+        console.log(error);
       })
-      console.log();
+    }, [apiOffSet])
+  
+  
+    // create a function (getIndividualPokemon) to retreieve the data from each item in the array
+    // 	  another fetch function may be needed and THEN displayPokemon
+  
+    useEffect(() => {
+      const pokePromises = pokemonList.map((pokemonFromList) => {
+        return axios({
+          url: pokemonFromList.url,
+          method: "GET",
+          dataResponse: "json",
+        })
+      })
+      Promise.all(pokePromises).then((response) => {
+        setPokemonArray(response)
+      })
+    }, [pokemonList])
 
-
-    }).catch((error) => {
-      console.log(error);
-    })
-  }, [])
-
-
+    console.log(pokemonArray);
   // create a function (getIndividualPokemon) to retreieve the data from each item in the array
   // 	  another fetch function may be needed and THEN displayPokemon
 
@@ -115,14 +125,14 @@ function App() {
             <button>forward</button>
           </div>
           <div className='pokemonResults'>
-            {/* {pokemons.map((poke) => {
+            {pokemonArray.map((poke) => {
             return (
-              <div key={poke.id} className='pokemonCard'>
-                <h2>{poke.name}</h2>
-                <img src={poke.sprites.front_default} alt="" />
+              <div key={poke.data.id} className='pokemonCard'>
+                <h2>{poke.data.name}</h2>
+                <img src={poke.data.sprites.front_default} alt="" />
               </div>
             )
-          })} */}
+          })}
           </div>
           <div className='buttonFlex'>
             <button>backward</button>
