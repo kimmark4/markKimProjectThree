@@ -1,0 +1,26 @@
+idea
+a pokemon website that shows pokemon
+
+mvp
+a header introducing the website
+5 images with headers showing pokemon
+a forward and backward button to allow users to search 5 pokemon after or before
+
+
+stretch goals
+a search function to find specific pokemon and return that singular pokemon onto the page
+click on the pokemon and create a pop-up modal to show the pokemon's type(s) and base stats
+
+
+api
+url: https://pokeapi.co/api/v2/pokemon/
+search params -
+	offset (what number to start at)
+	limit (how many to show)
+		https://pokeapi.co/api/v2/pokemon/?limit=5&offset=0
+*stretch goal
+url: https://pokeapi.co/api/v2/pokemon/{userInput}/
+	access the searched pokemon here
+
+url: https://pokeapi.co/api/v2/pokemon/1/
+	access type and base stats here
