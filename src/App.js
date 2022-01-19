@@ -1,8 +1,11 @@
-
-
+// Modules
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+// Styling
 import './App.css';
+import HeaderImage from './assets/Daco_4694045.png'
+// Components
+import Header from './components/Header.js';
 
 function App() {
   //  create variables that:
@@ -31,29 +34,34 @@ function App() {
         limit: apiLimit,
       },
     }).then((response) => {
-      setPokemonList(response.data.results);
+      const poke = response.data.results
+      console.log(poke);
+      poke.map((e) => {
+        console.log(e);
+        return `${e.urls}`
+      })
+      console.log();
+
+
     }).catch((error) => {
       console.log(error);
     })
   }, [])
 
+
   // create a function (getIndividualPokemon) to retreieve the data from each item in the array
   // 	  another fetch function may be needed and THEN displayPokemon
 
-  useEffect(() => {
-    pokemonList.map((pokemonFromList) => {
-      axios({
-        url: pokemonFromList.url,
-        method: "GET",
-        dataResponse: "json",
-      }).then((response) => {
-        pokemons.push(response.data)
-      })
-    })
-  }, [pokemonList])
-
-  // console.log(pokemonList);
-  console.log(pokemons);
+  // useEffect(() => {
+  //   axios({
+  //     // url: pokemonFromList.url,
+  //     method: "GET",
+  //     dataResponse: "json",
+  //   }).then((response) => {
+  //     pokemons.push(response.data)
+  //     console.log(response.data);
+  //   })
+  // }, [pokemonList])
 
 
   // create a function (changePokemon) to change the variable that holds the offset variable for the api search parameter when the backward and forward buttons are clicked
@@ -96,24 +104,36 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
 
-      <button
-        // onClick={ handleBackward }
-      >backward</button>
-      <button
-      // onClick={ handleForward } 
-      >forward</button>
 
       {/* // create a function (displayPokemon) that will display the name and image of each pokemon onto the page */}
-      {pokemons.map((poke) => {
-        return (
-          <div key={poke.id}>
-            <h2>{poke.name}</h2>
-            <img src={poke.sprites.front_default} alt="" />
+      <main>
+        <section className='wrapper'>
+          <div className='buttonFlex'>
+            <button>backward</button>
+            <button>forward</button>
           </div>
-        )
-      })}
+          <div className='pokemonResults'>
+            {/* {pokemons.map((poke) => {
+            return (
+              <div key={poke.id} className='pokemonCard'>
+                <h2>{poke.name}</h2>
+                <img src={poke.sprites.front_default} alt="" />
+              </div>
+            )
+          })} */}
+          </div>
+          <div className='buttonFlex'>
+            <button>backward</button>
+            <button>forward</button>
+          </div>
+        </section>
+      </main>
 
+      <footer>
+        <p>Copyright © Mark Kim at Juno College</p>
+      </footer>
 
     </div>
   );
