@@ -96,6 +96,7 @@ button {
 }
 
 .pokemonCard h2 {
+  margin-top: 3%;
   font-family: 'Press Start 2P', cursive;
   text-transform: capitalize;
 }
