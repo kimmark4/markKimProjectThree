@@ -25,12 +25,11 @@ function App() {
   const apiLimit = 6;
 
 
-  const apiUrl = `https://pokeapi.co/api/v2/pokemon/`;
 
   // create a function to retreive a list of pokemon from the api and store this data in the pokemonList array
   useEffect(() => {
     axios({
-      url: apiUrl,
+      url: `https://pokeapi.co/api/v2/pokemon/`,
       method: "GET",
       dataResponse: "json",
       params: {
