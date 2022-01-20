@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 // Styling
 import './App.css';
-import HeaderImage from './assets/Daco_4694045.png'
 // Components
 import Header from './components/Header.js';
 
@@ -18,7 +17,7 @@ function App() {
   const [apiOffSet, setApiOffSet] = useState(0);
   const [apiLimit, setApiLimit] = useState(6);
   const [pokemonList, setPokemonList] = useState([]);
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemonArray, setPokemonArray] = useState([]);
 
 
   const apiUrl = `https://pokeapi.co/api/v2/pokemon/`
@@ -34,72 +33,47 @@ function App() {
         limit: apiLimit,
       },
     }).then((response) => {
-      const poke = response.data.results
-      console.log(poke);
-      poke.map((e) => {
-        console.log(e);
-        return `${e.urls}`
-      })
-      console.log();
-
-
+      setPokemonList(response.data.results);
+      console.log(response.data.results);
     }).catch((error) => {
       console.log(error);
     })
-  }, [])
+  }, [apiOffSet])
 
 
   // create a function (getIndividualPokemon) to retreieve the data from each item in the array
   // 	  another fetch function may be needed and THEN displayPokemon
 
-  // useEffect(() => {
-  //   axios({
-  //     // url: pokemonFromList.url,
-  //     method: "GET",
-  //     dataResponse: "json",
-  //   }).then((response) => {
-  //     pokemons.push(response.data)
-  //     console.log(response.data);
-  //   })
-  // }, [pokemonList])
+  useEffect(() => {
+    const pokePromises = pokemonList.map((pokemonFromList) => {
+      return axios({
+        url: pokemonFromList.url,
+        method: "GET",
+        dataResponse: "json",
+      })
+    })
+    Promise.all(pokePromises).then((response) => {
+      setPokemonArray(response)
+    })
+  }, [pokemonList])
+
+  console.log(pokemonArray);
+
 
 
   // create a function (changePokemon) to change the variable that holds the offset variable for the api search parameter when the backward and forward buttons are clicked
   // 	when the forward button is clicked, add 6 to the variable,
   // 	when the backward button is clicked, subtract 6 of the variable
-  // 	call the getListOfPokemon function to get the new pokemon to display
-  // const handleForward = (number) => {
-  //   number = apiOffSet + 6;
-  //   setApiOffSet(number);
-  // }
+  // 	put apiOffSet in the dependancy array for the first useEffect so that when the apiOffset variable is changed, the useEffect is triggered again.
+  const handleForward = (number) => {
+    number = apiOffSet + 6;
+    setApiOffSet(number);
+  }
 
-  // const handleBackward = (number) => {
-  //   number = apiOffSet - 6;
-  //   setApiOffSet(number);
-  // }
-
-  // stretch goals
-  // create variables that
-  // 	1 holds the api url and takes in the {userInput} variable
-  // 	2 holds the user's input
-
-
-  // create a function (getUserInput) that 
-  // 	gets the value of what the user has inputted into the search bar, when the search button is clicked
-  // 	save this value into a variable of {userInput}
-  // 	use {userInput} to fill in the search parameter for the api url that will search for a specific pokemon
-  // 	retreive the data and THEN call the displayPokemon function again to display this pokemon
-
-
-  // create a function (pokemonClicked) that will execute when any of the displayed pokemon are clicked
-  // 	create a variable to hold the selected pokemon's id
-  // 	input the variable into the url to fetch the api's data
-  // 	get data from the api and THEN call the pokemonPopup function
-
-
-  // create a function (pokemonPopup) that will show more information about the selected pokemon
-  // 	create a pop-up modal
-  // 	use the data from the api to display the pokemon's type(s) and base stats
+  const handleBackward = (number) => {
+    number = apiOffSet - 6;
+    setApiOffSet(number);
+  }
 
 
   return (
@@ -111,22 +85,22 @@ function App() {
       <main>
         <section className='wrapper'>
           <div className='buttonFlex'>
-            <button>backward</button>
-            <button>forward</button>
+            <button onClick={handleBackward}>backward</button>
+            <button onClick={handleForward}>forward</button>
           </div>
-          <div className='pokemonResults'>
-            {/* {pokemons.map((poke) => {
-            return (
-              <div key={poke.id} className='pokemonCard'>
-                <h2>{poke.name}</h2>
-                <img src={poke.sprites.front_default} alt="" />
-              </div>
-            )
-          })} */}
-          </div>
+          <ul className='pokemonResults'>
+            {pokemonArray.map((pokemon) => {
+              return (
+                <li key={pokemon.data.id} className='pokemonCard'>
+                  <h2>{pokemon.data.name}</h2>
+                  <img src={pokemon.data.sprites.front_default} alt={`${pokemon.data.name}`} /> 
+                </li>
+              )
+            })}
+          </ul>
           <div className='buttonFlex'>
-            <button>backward</button>
-            <button>forward</button>
+            <button onClick={handleBackward}>backward</button>
+            <button onClick={handleForward}>forward</button>
           </div>
         </section>
       </main>
