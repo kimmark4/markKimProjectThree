@@ -9,28 +9,18 @@ import Main from './components/Main.js';
 import Footer from './components/Footer.js'
 
 function App() {
- //  create variables that:
-  // 	  1 holds api url for searching for a list of pokemon
-  // 	  2 holds the data from the first api call
-  //    3 holds the data from the second api call
-  // 	  4 hold the variable for offset
-  // 		    starts at 0
-  // 	    limit will be set to 6
-  //        stretch goal: allow users select an option to see a list of more than 6 at once
-
   const [pokemonList, setPokemonList] = useState([]);
   const [pokemonArray, setPokemonArray] = useState([]);
   const [apiOffSet, setApiOffSet] = useState(0);
-  // can't use apiLimit as an useState yet because setApiLimit will be an unused variable which Netlify will not allow
+  // can't use apiLimit as an useState yet because setApiLimit will be an unused variable which Netlify will not allow. will leave apiLimit as a variable for stretch goals later on
   const apiLimit = 6;
 
 
-  const apiUrl = `https://pokeapi.co/api/v2/pokemon/`
 
   // create a function to retreive a list of pokemon from the api and store this data in the pokemonList array
   useEffect(() => {
     axios({
-      url: apiUrl,
+      url: `https://pokeapi.co/api/v2/pokemon/`,
       method: "GET",
       dataResponse: "json",
       params: {
@@ -44,10 +34,9 @@ function App() {
     })
   }, [apiOffSet])
 
-  // create a function that will call all of the pokemon in the pokemonList array
-  //    use the Promise.all() function to let React know to wait for all of the api calls to finish first, then store that data into the pokemonArray array
-  //    add the pokemonList in the dependency array to let this useEffect know to trigger when the pokemonList array is changed.
 
+
+  // create a function that will call all of the pokemon in the pokemonList array
   useEffect(() => {
     const pokePromises = pokemonList.map((pokemonFromList) => {
       return axios({
@@ -61,11 +50,9 @@ function App() {
     })
   }, [pokemonList])
 
-  console.log(pokemonArray);
 
 
-
-  // add onClick functions on the forward and backward buttons and 
+  // add onClick functions on the forward and backward buttons and add or subtract 6 from the apiOffset variable depending o
   const handleForward = () => {
     setApiOffSet(apiOffSet + 6);
   }
