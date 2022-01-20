@@ -41,6 +41,7 @@ function App() {
   }, [apiOffSet])
 
 
+    console.log(pokemonArray);
   // create a function (getIndividualPokemon) to retreieve the data from each item in the array
   // 	  another fetch function may be needed and THEN displayPokemon
 
