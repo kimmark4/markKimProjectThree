@@ -57,7 +57,7 @@ function App() {
     setApiOffSet(apiOffSet + 6);
   }
 
-  const handleBackward = (number) => {
+  const handleBackward = () => {
     setApiOffSet(apiOffSet - 6);
   }
 
