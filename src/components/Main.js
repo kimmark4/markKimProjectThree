@@ -1,7 +1,5 @@
 
-
 const Main = ({ pokemonArray, handleBackward, handleForward }) => {
-
     return (
         <main>
             <section className='wrapper'>
