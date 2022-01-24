@@ -1,38 +1,237 @@
-.App {
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}a,h1,h2,h3,h4,h5,h6,p{margin:0;padding:0}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+.clearfix:after {visibility: hidden; display: block; font-size: 0; content: ''; clear: both; height: 0; }
+
+html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+
+*, *:before, *:after {box-sizing: inherit}
+
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&display=swap');
+/* General Styles */
+html {
+  font-size: 125%;
+  line-height: 1.15;
+  font-family: 'Press Start 2P', cursive;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+.wrapper {
+  max-width: 1280px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* Page Styling */
+header {
+  background-image: url(./assets/d9szka0-f699842e-0e72-45b6-8401-fe77da84903b.png);
+  background-position: center;
+  background-size: contain;
+}
+
+.headerFlex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header img {
+  width: 30%;
+  margin: 3% 0 ;
+}
+
+h1 {
+  font-family: 'Bangers', cursive;
+  font-size: 7rem;
+  color: #ffde00;
+  text-shadow: 10px 10px #3b4cca, 10px 10px #3b4cca;
+  text-align: center;
+  margin: 3% 0;
+}
+
+.buttonFlex {
+  display: flex;
+  justify-content: space-between;
+}
+
+main {
+  padding: 2% 0;
+  background-color: #3b4cca;
+}
+
+button {
+  padding: 1%;
+  font-family: 'Press Start 2P', cursive;
+  background-color: white;
+  border: 5px solid black;
+  border-radius: 5%;
+}
+
+button:hover, :focus {
+  color: white;
+  background-color: black;
+  border: 5px solid white;
+}
+
+.pokemonResults {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 3% 0;
+}
+
+.pokemonCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: calc(33% - 30px);
+  background-color: white;
+  margin: 15px 15px;
+  border: 5px solid black;
+  border-radius: 5%;
+}
+
+.pokemonCard h2 {
+  margin-top: 3%;
+  font-family: 'Press Start 2P', cursive;
+  text-transform: capitalize;
+}
+
+.pokemonCard img {
+  width: 50%;
+}
+
+footer {
+  padding: 1% 0;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7rem;
+  color: white;
+  background-color: black;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (max-width: 1280px) {
+  h2 {
+    font-size: 1rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 940px) {
+  .wrapper {
+      max-width: 920px;
+      width: 90%;
+      margin: 0 auto;
   }
-  to {
-    transform: rotate(360deg);
+
+  h2 {
+    font-size: 0.7rem;
+  }
+
+  button {
+    font-size: 0.8rem;
+  }
+
+  footer {
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 660px) {
+  .wrapper {
+    max-width: 600px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 5rem;
+  }
+
+  h2 {
+    font-size: 0.6rem;
+  }
+
+  button {
+    font-size: 0.7rem;
+  }
+
+  footer {
+    font-size: 0.4rem;
+  }
+}
+
+@media (max-width: 580px) {
+  h2 {
+    font-size: 0.5rem;
+  }
+
+  button {
+    font-size: 0.6rem;
+  }
+
+  footer {
+    font-size: 0.3rem;
+  }
+}
+
+@media (max-width: 500px) {
+  h2 {
+    font-size: 0.4rem;
+  }
+
+  button {
+    font-size: 0.5rem;
+  }
+
+  footer {
+    font-size: 0.3rem;
+  }
+}
+
+@media (max-width: 450px) {
+  h2 {
+    font-size: 0.3rem;
+  }
+
+  button {
+    font-size: 0.4rem;
+  }
+
+  footer {
+    font-size: 0.2rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .wrapper {
+    max-width: 350px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 0.25rem;
+  }
+
+  button {
+    font-size: 0.3rem;
+  }
+
+  footer {
+    font-size: 0.15rem;
   }
 }
