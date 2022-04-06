@@ -17,7 +17,7 @@ const SinglePokemon = (props) => {
         }).catch((error) => {
             console.log(error);
         })
-    }, [searchTerm])
+    }, [searchTerm, apiUrl])
 
     return (
         <>
