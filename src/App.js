@@ -14,7 +14,7 @@ function App() {
   const [apiLimit, setApiLimit] = useState(6);
   const [userInput, setUserInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const apiUrl = `https://pokeapi.co/api/v2/pokemon/`
+  const [apiUrl] = useState("https://pokeapi.co/api/v2/pokemon/");
 
 
   const handleForward = (number) => {
