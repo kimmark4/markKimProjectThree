@@ -25,7 +25,7 @@ const PokemonList = (props) => {
         }).catch((error) => {
             console.log(error);
         })
-    }, [apiOffSet])
+    }, [apiOffSet, apiLimit])
 
 
     // create a function (getIndividualPokemon) to retreieve the data from each item in the array

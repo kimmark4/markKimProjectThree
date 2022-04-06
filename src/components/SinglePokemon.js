@@ -21,7 +21,6 @@ const SinglePokemon = (props) => {
 
     return (
         <>
-
             {singlePokemon ?
                 <li key={singlePokemon.id} className='pokemonCard'>
                     <h2>{singlePokemon.name}</h2>

@@ -6,6 +6,7 @@ import './App.css';
 import Header from './components/Header.js';
 import PokemonList from './components/PokemonList';
 import SinglePokemon from './components/SinglePokemon';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -45,17 +46,30 @@ function App() {
         <section className='wrapper'>
           <div className='buttonFlex'>
             <button onClick={handleBackward}>backward</button>
-
+            
             <button onClick={handleForward}>forward</button>
           </div>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="search">Search for a Pokemon:</label>
+            <label htmlFor="">Search for a Pokemon:</label>
             <input type="text" id="search" onChange={handleInput} value={userInput} placeholder="Enter a name or number" />
             <button>Search</button>
           </form>
+          <form action="">
+              <label htmlFor="select">Number of Displayed Pokémon:</label>
+              <select className="dropDown"
+                id="time"
+                name="time"
+                onChange={(e) => setApiLimit(e.target.value)}
+                value={apiLimit}
+              >
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+              </select>
+            </form>
           <ul className='pokemonResults'>
-            {!searchTerm 
-            ?
+            {!searchTerm
+              ?
               <PokemonList
                 apiOffSet={apiOffSet}
                 apiLimit={apiLimit}
@@ -75,9 +89,7 @@ function App() {
         </section>
       </main>
 
-      <footer>
-        <p>Copyright © Mark Kim at Juno College</p>
-      </footer>
+      <Footer />
 
     </div>
   );
