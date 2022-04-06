@@ -1,64 +1,38 @@
 // Modules
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 // Styling
 import './App.css';
 // Components
 import Header from './components/Header.js';
-import Main from './components/Main.js';
-import Footer from './components/Footer.js'
+import PokemonList from './components/PokemonList';
+import SinglePokemon from './components/SinglePokemon';
 
 function App() {
-  const [pokemonList, setPokemonList] = useState([]);
-  const [pokemonArray, setPokemonArray] = useState([]);
+
   const [apiOffSet, setApiOffSet] = useState(0);
-  // can't use apiLimit as an useState yet because setApiLimit will be an unused variable which Netlify will not allow. will leave apiLimit as a variable for stretch goals later on
-  const apiLimit = 6;
+  const [apiLimit, setApiLimit] = useState(6);
+  const [userInput, setUserInput] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const apiUrl = `https://pokeapi.co/api/v2/pokemon/`
 
 
+  const handleForward = (number) => {
+    number = apiOffSet + 6;
+    setApiOffSet(number);
+  };
 
-  // create a function to retreive a list of pokemon from the api and store this data in the pokemonList array
-  useEffect(() => {
-    axios({
-      url: `https://pokeapi.co/api/v2/pokemon/`,
-      method: "GET",
-      dataResponse: "json",
-      params: {
-        offset: apiOffSet,
-        limit: apiLimit,
-      },
-    }).then((response) => {
-      setPokemonList(response.data.results);
-    }).catch((error) => {
-      prompt(`Website is currently not working due to: ${error}`)
-    })
-  }, [apiOffSet])
+  const handleBackward = (number) => {
+    number = apiOffSet - 6;
+    setApiOffSet(number);
+  };
 
+  const handleInput = (e) => {
+    setUserInput(e.target.value)
+  };
 
-
-  // create a function that will call all of the pokemon in the pokemonList array
-  useEffect(() => {
-    const pokePromises = pokemonList.map((pokemonFromList) => {
-      return axios({
-        url: pokemonFromList.url,
-        method: "GET",
-        dataResponse: "json",
-      })
-    })
-    Promise.all(pokePromises).then((response) => {
-      setPokemonArray(response)
-    })
-  }, [pokemonList])
-
-
-
-  // add onClick functions on the forward and backward buttons and add or subtract 6 from the apiOffset variable depending o
-  const handleForward = () => {
-    setApiOffSet(apiOffSet + 6);
-  }
-
-  const handleBackward = () => {
-    setApiOffSet(apiOffSet - 6);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearchTerm(userInput)
   }
 
 
@@ -67,9 +41,44 @@ function App() {
     <div className="App">
       <Header />
 
-      <Main pokemonArray={pokemonArray} handleForward={handleForward} handleBackward={handleBackward} />
+      <main>
+        <section className='wrapper'>
+          <div className='buttonFlex'>
+            <button onClick={handleBackward}>backward</button>
 
-      <Footer />
+            <button onClick={handleForward}>forward</button>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="search">Search for a Pokemon:</label>
+            <input type="text" id="search" onChange={handleInput} value={userInput} placeholder="Enter a name or number" />
+            <button>Search</button>
+          </form>
+          <ul className='pokemonResults'>
+            {!searchTerm 
+            ?
+              <PokemonList
+                apiOffSet={apiOffSet}
+                apiLimit={apiLimit}
+                apiUrl={apiUrl}
+              />
+              :
+              <SinglePokemon
+                searchTerm={searchTerm}
+                apiUrl={apiUrl}
+              />
+            }
+          </ul>
+          <div className='buttonFlex'>
+            <button onClick={handleBackward}>backward</button>
+            <button onClick={handleForward}>forward</button>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Copyright © Mark Kim at Juno College</p>
+      </footer>
+
     </div>
   );
 }

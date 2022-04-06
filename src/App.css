@@ -68,6 +68,28 @@ main {
   background-color: #3b4cca;
 }
 
+form {
+  margin-top: 3%;
+}
+
+form label {
+  font-family: 'Press Start 2P', cursive; 
+}
+
+form input {
+  margin: 0 1%;
+  background-color: white;
+  border: 5px solid black;
+  border-radius: 5%;
+  padding: 1%;
+}
+
+form input:focus {
+  border: 5px solid white;
+  background-color: black;
+  color: white;
+}
+
 button {
   padding: 1%;
   font-family: 'Press Start 2P', cursive;
@@ -76,10 +98,10 @@ button {
   border-radius: 5%;
 }
 
-button:hover, :focus {
-  color: white;
-  background-color: black;
+button:hover {
   border: 5px solid white;
+  background-color: black;
+  color: white;
 }
 
 .pokemonResults {
