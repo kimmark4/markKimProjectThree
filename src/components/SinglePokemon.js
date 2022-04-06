@@ -14,7 +14,6 @@ const SinglePokemon = (props) => {
         }).then((response) => {
             console.log(response.data);
             setSinglePokemon(response.data)
-
         }).catch((error) => {
             console.log(error);
         })

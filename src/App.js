@@ -1,6 +1,5 @@
 // Modules
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 // Styling
 import './App.css';
 // Components
@@ -51,7 +50,7 @@ function App() {
             <button onClick={handleForward}>forward</button>
           </div>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="search">Search for a Pokemon</label>
+            <label htmlFor="search">Search for a Pokemon:</label>
             <input type="text" id="search" onChange={handleInput} value={userInput} placeholder="Enter a name or number" />
             <button>Search</button>
           </form>
